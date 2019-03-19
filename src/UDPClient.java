@@ -1,6 +1,9 @@
 
-// L� uma linha do teclado
+// Le uma linha do teclado
 // Envia o pacote (linha digitada) ao servidor
+
+import java.io.*; // classes para input e output streams e
+import java.net.*;// DatagramaSocket,InetAddress,DatagramaPacket
 
 import java.io.*; // classes para input e output streams e
 import java.net.*;// DatagramaSocket,InetAddress,DatagramaPacket
@@ -13,24 +16,41 @@ class UDPClient {
 		// declara socket cliente
 		DatagramSocket clientSocket = new DatagramSocket();
 
-		// obtem endere�o IP do servidor com o DNS
-		InetAddress IPAddress = InetAddress.getByName("localhost");
+		// obtem endereco IP do servidor com o DNS
+		InetAddress IPAddress = InetAddress.getByName("10.32.143.47");
 
 		byte[] sendData = new byte[1024];
 		byte[] receiveData = new byte[1024];
 
-		// l� uma linha do teclado
-		String sentence = inFromUser.readLine();
-		sendData = sentence.getBytes();
+		FileInputStream f=new FileInputStream("/home/labredes/Documentos/teste.txt");
+		
+		// le uma linha do teclado
+//		System.out.println("Digite a mensagem ");
+//		String sentence = inFromUser.readLine();
+//		sendData = sentence.getBytes();
+//
+//		// cria pacote com o dado, o endereco do server e porta do servidor
+//		DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, 9875);
+//
+//		// envia o pacote
+//		clientSocket.send(sendPacket);
 
-		// cria pacote com o dado, o endere�o do server e porta do servidor
-		DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, 9876);
-
-		// envia o pacote
-		clientSocket.send(sendPacket);
-
+		
+		 int i=0;
+		 byte b[]=new byte[1024];
+	     while(f.available()!=0)
+	     {
+	                 b[i]=(byte)f.read();
+	                 i++;
+	     }     
+	     f.close();
+	     clientSocket.send(new DatagramPacket(b,i,IPAddress,9875));
+		
 		// fecha o cliente
 		clientSocket.close();
 	}
+	
+
 
 }
+
