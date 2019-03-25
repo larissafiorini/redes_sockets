@@ -18,9 +18,6 @@ public class TCPServer {
         Socket socket = ssock.accept();
         byte[] contents = new byte[10000];
         
-        //The InetAddress specification
-        InetAddress IA = InetAddress.getByName("localhost"); 
-        
         //Initialize the FileOutputStream to the output file's full path.
         FileOutputStream fos = new FileOutputStream("recebido.txt");
         BufferedOutputStream bos = new BufferedOutputStream(fos);

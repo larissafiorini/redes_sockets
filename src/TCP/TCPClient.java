@@ -36,7 +36,7 @@ public class TCPClient {
 		long fileLength = file.length();
 		long current = 0;
 
-		long start = System.nanoTime();
+		//long start = System.nanoTime();
 		while (current != fileLength) {
 			int size = 10000;
 			if (fileLength - current >= size)
