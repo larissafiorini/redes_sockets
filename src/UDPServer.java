@@ -33,7 +33,7 @@ class UDPServer {
 			byte b[] = new byte[3072];
 
 			FileOutputStream f = new FileOutputStream(
-					"/home/labredes/Documentos/testerecebido.txt");
+					"C:\\Users\\ESCOLA VILA GRAN\\Documents\\labredes\\recebido.txt");
 			while (true) {
 				DatagramPacket dp = new DatagramPacket(b, b.length);
 				serverSocket.receive(dp);

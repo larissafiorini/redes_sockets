@@ -17,12 +17,13 @@ class UDPClient {
 		DatagramSocket clientSocket = new DatagramSocket();
 
 		// obtem endereco IP do servidor com o DNS
-		InetAddress IPAddress = InetAddress.getByName("10.32.143.47");
+		//InetAddress IPAddress = InetAddress.getByName("10.32.143.47");
+		InetAddress IPAddress = InetAddress.getByName("192.168.15.8");
 
 		byte[] sendData = new byte[1024];
 		byte[] receiveData = new byte[1024];
 
-		FileInputStream f=new FileInputStream("/home/labredes/Documentos/teste.txt");
+		FileInputStream f=new FileInputStream("C:\\Users\\ESCOLA VILA GRAN\\Documents\\labredes\\teste.txt");
 		
 		// le uma linha do teclado
 //		System.out.println("Digite a mensagem ");

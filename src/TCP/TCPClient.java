@@ -1,20 +1,33 @@
 package TCP;
+import java.io.BufferedOutputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.net.InetAddress;
+import java.net.Socket;
 
-import java.io.*;
-import java.net.*;
 
-class TCPClient {
-	public static void main(String argv[]) throws Exception {
-		String sentence;
-		String modifiedSentence;
-		BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
-		Socket clientSocket = new Socket("localhost", 6789);
-		DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
-		BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-		sentence = inFromUser.readLine();
-		outToServer.writeBytes(sentence + 'n');
-		modifiedSentence = inFromServer.readLine();
-		System.out.println("FROM SERVER: " + modifiedSentence);
-		clientSocket.close();
-	}
+public class TCPClient { 
+    
+    public static void main(String[] args) throws Exception{
+        
+        //Initialize socket
+        Socket socket = new Socket(InetAddress.getByName("192.168.15.8"), 5000);
+        byte[] contents = new byte[10000];
+        
+        //Initialize the FileOutputStream to the output file's full path.
+        FileOutputStream fos = new FileOutputStream("C:\\Users\\ESCOLA VILA GRAN\\Documents\\labredes\\teste.txt");
+        BufferedOutputStream bos = new BufferedOutputStream(fos);
+        InputStream is = socket.getInputStream();
+        
+        //No of bytes read in one read() call
+        int bytesRead = 0; 
+        
+        while((bytesRead=is.read(contents))!=-1)
+            bos.write(contents, 0, bytesRead); 
+        
+        bos.flush(); 
+        socket.close(); 
+        
+        System.out.println("File saved successfully!");
+    }
 }
