@@ -11,7 +11,7 @@ class UDPClient {
 		DatagramSocket clientSocket = new DatagramSocket();
 
 		// obtem endereco IP do servidor com o DNS
-		InetAddress IPAddress = InetAddress.getByName("192.168.15.8");
+		InetAddress IPAddress = InetAddress.getByName("localhost");
 
 		FileInputStream f = new FileInputStream("enviado.txt");
 

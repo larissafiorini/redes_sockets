@@ -21,7 +21,7 @@ public class TCPClient {
 	public static void main(String[] args) throws Exception {
 
 		// Inicializa socket
-		Socket socket = new Socket(InetAddress.getByName("192.168.15.8"), 5000);
+		Socket socket = new Socket(InetAddress.getByName("localhost"), 5000);
 
 		// Arquivo que sera enviado para o server
 		File file = new File("enviado.txt");

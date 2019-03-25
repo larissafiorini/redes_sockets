@@ -19,7 +19,7 @@ public class TCPServer {
         byte[] contents = new byte[10000];
         
         //The InetAddress specification
-        InetAddress IA = InetAddress.getByName("192.168.15.8"); 
+        InetAddress IA = InetAddress.getByName("localhost"); 
         
         //Initialize the FileOutputStream to the output file's full path.
         FileOutputStream fos = new FileOutputStream("recebido.txt");
