@@ -1,4 +1,5 @@
 package TCP;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -15,48 +16,45 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+public class TCPClient {
 
-public class TCPClient { 
-    
-    public static void main(String[] args) throws Exception{
-        
-        //Initialize socket
-        Socket socket = new Socket(InetAddress.getByName("192.168.15.8"), 5000);
-        //byte[] contents = new byte[10000];
-        
-      //Specify the file
-        File file = new File("C:\\Users\\ESCOLA VILA GRAN\\Documents\\labredes\\enviado.txt");
-        FileInputStream fis = new FileInputStream(file);
-        BufferedInputStream bis = new BufferedInputStream(fis); 
-          
-        //Get socket's output stream
-        OutputStream os = socket.getOutputStream();
-                
-        //Read File Contents into contents array 
-        byte[] contents;
-        long fileLength = file.length(); 
-        long current = 0;
-         
-        long start = System.nanoTime();
-        while(current!=fileLength){ 
-            int size = 10000;
-            if(fileLength - current >= size)
-                current += size;    
-            else{ 
-                size = (int)(fileLength - current); 
-                current = fileLength;
-            } 
-            contents = new byte[size]; 
-            bis.read(contents, 0, size); 
-            System.out.println(contents);
-            os.write(contents);
-            System.out.print("Sending file ... "+(current*100)/fileLength+"% complete!");
-        }   
-        
-        os.flush(); 
-        //File transfer done. Close the socket connection!
-        socket.close();
-       
-        System.out.println("File sent succesfully!");
-    }
+	public static void main(String[] args) throws Exception {
+
+		// Inicializa socket
+		Socket socket = new Socket(InetAddress.getByName("192.168.15.8"), 5000);
+
+		// Arquivo que sera enviado para o server
+		File file = new File("enviado.txt");
+		FileInputStream fis = new FileInputStream(file);
+		BufferedInputStream bis = new BufferedInputStream(fis);
+
+		// Get socket's output stream
+		OutputStream os = socket.getOutputStream();
+
+		// Le conteudo do arquivo que sera enviado
+		byte[] contents;
+		long fileLength = file.length();
+		long current = 0;
+
+		long start = System.nanoTime();
+		while (current != fileLength) {
+			int size = 10000;
+			if (fileLength - current >= size)
+				current += size;
+			else {
+				size = (int) (fileLength - current);
+				current = fileLength;
+			}
+			contents = new byte[size];
+			bis.read(contents, 0, size);
+			System.out.println(contents);
+			os.write(contents);
+			System.out.print("Enviando arquivo... " + (current * 100) / fileLength + "% concluido!");
+		}
+
+		os.flush();
+		socket.close();
+
+		System.out.println("Arquivo enviado com sucesso!");
+	}
 }

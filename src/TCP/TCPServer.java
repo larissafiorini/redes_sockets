@@ -22,7 +22,7 @@ public class TCPServer {
         InetAddress IA = InetAddress.getByName("192.168.15.8"); 
         
         //Initialize the FileOutputStream to the output file's full path.
-        FileOutputStream fos = new FileOutputStream("C:\\Users\\ESCOLA VILA GRAN\\Documents\\labredes\\recebido.txt");
+        FileOutputStream fos = new FileOutputStream("recebido.txt");
         BufferedOutputStream bos = new BufferedOutputStream(fos);
         InputStream is = socket.getInputStream();
         
@@ -35,7 +35,7 @@ public class TCPServer {
         bos.flush(); 
         socket.close(); 
         
-        System.out.println("File saved successfully!");
+        System.out.println("Arquivo salvo com sucesso!");
         ssock.close();
     }
 }
