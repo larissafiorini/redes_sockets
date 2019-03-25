@@ -1,12 +1,14 @@
 package TCP;
 
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.OutputStream;
+import java.io.BufferedOutputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.net.InetAddress;
+import java.net.Socket;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+
 
 public class TCPServer { 
     
@@ -14,43 +16,26 @@ public class TCPServer {
         //Initialize Sockets
         ServerSocket ssock = new ServerSocket(5000);
         Socket socket = ssock.accept();
+        byte[] contents = new byte[10000];
         
         //The InetAddress specification
         InetAddress IA = InetAddress.getByName("192.168.15.8"); 
         
-        //Specify the file
-        File file = new File("C:\\Users\\ESCOLA VILA GRAN\\Documents\\labredes\\recebido.txt");
-        FileInputStream fis = new FileInputStream(file);
-        BufferedInputStream bis = new BufferedInputStream(fis); 
-          
-        //Get socket's output stream
-        OutputStream os = socket.getOutputStream();
-                
-        //Read File Contents into contents array 
-        byte[] contents;
-        long fileLength = file.length(); 
-        long current = 0;
-         
-        long start = System.nanoTime();
-        while(current!=fileLength){ 
-            int size = 10000;
-            if(fileLength - current >= size)
-                current += size;    
-            else{ 
-                size = (int)(fileLength - current); 
-                current = fileLength;
-            } 
-            contents = new byte[size]; 
-            bis.read(contents, 0, size); 
-            System.out.println(contents);
-            os.write(contents);
-            System.out.print("Sending file ... "+(current*100)/fileLength+"% complete!");
-        }   
+        //Initialize the FileOutputStream to the output file's full path.
+        FileOutputStream fos = new FileOutputStream("C:\\Users\\ESCOLA VILA GRAN\\Documents\\labredes\\recebido.txt");
+        BufferedOutputStream bos = new BufferedOutputStream(fos);
+        InputStream is = socket.getInputStream();
         
-        os.flush(); 
-        //File transfer done. Close the socket connection!
-        socket.close();
+        //No of bytes read in one read() call
+        int bytesRead = 0; 
+        
+        while((bytesRead=is.read(contents))!=-1)
+            bos.write(contents, 0, bytesRead); 
+        
+        bos.flush(); 
+        socket.close(); 
+        
+        System.out.println("File saved successfully!");
         ssock.close();
-        System.out.println("File sent succesfully!");
     }
 }
